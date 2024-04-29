@@ -9,8 +9,7 @@ from langchain.schema import HumanMessage
 
 load_dotenv()
 
-chat = ChatOpenAI(temperature=0)
-
+llm = ChatOpenAI(temperature=0.7)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -18,11 +17,10 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.command()
-async def question(ctx, *, question):
+async def q(ctx, *, question):
     try:
-
         messages = [HumanMessage(content=question)]
-        result = chat(messages)
+        result = llm(messages)
         await ctx.send(result.content)
     except Exception as e:
         print(f"Error occurred: {e}")
